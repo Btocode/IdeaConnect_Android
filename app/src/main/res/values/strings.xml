@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">IdeaConnect_Android</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="trending">Trending</string>
+    <string name="add_idea">Add Idea</string>
+    <string name="notifications">Notifications</string>
+    <string name="username">UserName</string>
 </resources>
