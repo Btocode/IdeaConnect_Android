@@ -2,46 +2,57 @@ package com.afsan.ideaconnect_android;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
     BottomNavigationView bottomNavView;
-    NavigationBarView navBarView;
 
 
-
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        navBarView = findViewById(R.id.bottom_nav_menu);
-        navBarView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
-            @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(),Home.class));
+        bottomNavView = findViewById(R.id.bottom_nav_menu);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container,new Home());
+        transaction.commit();
 
-                    case R.id.notification:
-                        startActivity(new Intent(getApplicationContext(),Notification.class));
+        bottomNavView.setOnItemSelectedListener(item -> {
+            Fragment fragment = null;
+            switch (item.getItemId()) {
+                case R.id.home:
+                    fragment = new Home();
+                    break;
+                case R.id.notification:
+                    fragment = new Notification();
+                    break;
                     case R.id.trending:
-                        startActivity(new Intent(getApplicationContext(),trending.class));
+                    fragment = new trending();
+                    break;
+                case R.id.profile:
+                    fragment = new Profile();
+                    break;
                     case R.id.idea:
-                        startActivity(new Intent(getApplicationContext(),NewIdea.class));
-                    case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(),Profile.class));
-                }
-
+                    fragment = new NewIdea();
+                    break;
             }
+            if (fragment == null) return true;
+            MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+            return true;
         });
 
     }
