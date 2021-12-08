@@ -3,10 +3,17 @@ package com.afsan.ideaconnect_android;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.afsan.ideaconnect_android.Adapter.IdeaAdapter;
+import com.afsan.ideaconnect_android.Model.IdeaModel;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +21,11 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class Home extends Fragment {
+
+
+    RecyclerView idearv;
+    ArrayList<IdeaModel> ideaList;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +71,21 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        idearv = view.findViewById(R.id.viewIdeas);
+        ideaList = new ArrayList<>();
+        ideaList.add(new IdeaModel(R.drawable.ic_profile,"Afsan Saeed","Idea Is given here","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.","#AI #ML #RNN","22","522","22"));
+        ideaList.add(new IdeaModel(R.drawable.ic_profile,"Afsan Saeed","Idea Is given here","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.","#AI #ML #RNN","22","522","22"));
+        ideaList.add(new IdeaModel(R.drawable.ic_profile,"Afsan Saeed","Idea Is given here","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.","#AI #ML #RNN","22","522","22"));
+        ideaList.add(new IdeaModel(R.drawable.ic_profile,"Afsan Saeed","Idea Is given here","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.","#AI #ML #RNN","22","522","22"));
+        ideaList.add(new IdeaModel(R.drawable.ic_profile,"Afsan Saeed","Idea Is given here","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.","#AI #ML #RNN","22","522","22"));
+
+        IdeaAdapter ideaAdapter = new IdeaAdapter(ideaList,getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        idearv.setLayoutManager(layoutManager);
+        idearv.setNestedScrollingEnabled(false);
+        idearv.setAdapter(ideaAdapter);
+        return view;
     }
 }
