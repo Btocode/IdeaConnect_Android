@@ -77,8 +77,8 @@ android:background="@color/secondary"
 
     <View
         android:id="@+id/view4"
-        android:layout_width="24dp"
-        android:layout_height="22dp"
+        android:layout_width="28dp"
+        android:layout_height="27dp"
         app:layout_constraintBottom_toBottomOf="@+id/profile_image"
         app:layout_constraintEnd_toEndOf="@+id/profile_image"
         app:layout_constraintStart_toStartOf="@+id/profile_image"
