@@ -37,7 +37,6 @@ public class IdeaModel {
     public String getIdea() {
         return idea;
     }
-
     public void setIdea(String idea) {
         this.idea = idea;
     }

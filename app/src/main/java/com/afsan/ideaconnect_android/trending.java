@@ -2,9 +2,19 @@ package com.afsan.ideaconnect_android;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.afsan.ideaconnect_android.Adapter.IdeaAdapter;
+import com.afsan.ideaconnect_android.Adapter.TrendingPostAdapter;
+import com.afsan.ideaconnect_android.Model.IdeaModel;
+import com.afsan.ideaconnect_android.Model.TrendingPostModel;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -13,6 +23,10 @@ import android.view.ViewGroup;
  *
  */
 public class trending extends Fragment {
+
+
+    RecyclerView idearv;
+    ArrayList<TrendingPostModel> ideaList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,6 +72,29 @@ public class trending extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trending, container, false);
+        View view = inflater.inflate(R.layout.fragment_trending, container, false);
+
+        idearv = view.findViewById(R.id.trendingContainer);
+        ideaList = new ArrayList<>();
+        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
+        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
+        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
+        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
+        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
+        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
+        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
+        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
+        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
+        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
+        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
+        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
+        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
+        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
+        TrendingPostAdapter trendingAdapter = new TrendingPostAdapter(ideaList,getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        idearv.setLayoutManager(layoutManager);
+        idearv.setNestedScrollingEnabled(false);
+        idearv.setAdapter(trendingAdapter);
+        return view;
     }
 }
