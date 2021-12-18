@@ -6,14 +6,25 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.afsan.ideaconnect_android.Adapter.IdeaAdapter;
+import com.afsan.ideaconnect_android.Model.API;
+import com.afsan.ideaconnect_android.Model.ApiInterface;
 import com.afsan.ideaconnect_android.Model.IdeaModel;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,9 +33,9 @@ import java.util.ArrayList;
  */
 public class Home extends Fragment {
 
-
+    String url = "https://1826-103-177-48-7.ngrok.io/api/";
     RecyclerView idearv;
-    ArrayList<IdeaModel> ideaList;
+//    ArrayList<IdeaModel> ideaList;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -64,7 +75,9 @@ public class Home extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
+
     }
 
     @Override
@@ -74,18 +87,41 @@ public class Home extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         idearv = view.findViewById(R.id.viewIdeas);
-        ideaList = new ArrayList<>();
-        ideaList.add(new IdeaModel(R.drawable.ic_profile,"Afsan Saeed","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type stially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.","Title of the Idea","#AI #ML #RNN","22","522","22"));
-        ideaList.add(new IdeaModel(R.drawable.ic_profile,"Afsan Saeed","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has surviveentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.","Title of the Idea","#AI #ML #RNN","22","522","22"));
-        ideaList.add(new IdeaModel(R.drawable.ic_profile,"Afsan Saeed","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.","Title of the Idea","#AI #ML #RNN","22","522","22"));
-        ideaList.add(new IdeaModel(R.drawable.ic_profile,"Afsan Saeed","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type anially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.","Title of the Idea","#AI #ML #RNN","22","522","22"));
-        ideaList.add(new IdeaModel(R.drawable.ic_profile,"Afsan Saeed","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.","Title of the Idea","#AI #ML #RNN","22","522","22"));
+        final ArrayList<IdeaModel>ideaList = new ArrayList<>();
+        int x = 0;
 
-        IdeaAdapter ideaAdapter = new IdeaAdapter(ideaList,getContext());
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        idearv.setLayoutManager(layoutManager);
-        idearv.setNestedScrollingEnabled(false);
-        idearv.setAdapter(ideaAdapter);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiInterface api = retrofit.create(ApiInterface.class);
+        Call<List<API>> call = api.getModels();
+        call.enqueue(new Callback<List<API>>() {
+            @Override
+            public void onResponse(Call<List<API>> call, Response<List<API>> response) {
+                List<API> data = response.body();
+                ArrayList<IdeaModel>ideaList = new ArrayList<>();
+                System.out.println(data.size()+ "success");
+                for(int i = 0; i< data.size();i++){
+                    API info = data.get(i);
+                    System.out.println(data.get(i).getUserInfo().getFirstName());
+//                    viewData(data.get(i).getUserInfo().getFirstName(),data.get(i).getUserInfo().getLastName(),data.get(i).getIdeatitle(),data.get(i).getIdeaDesc())
+                    ideaList.add(new IdeaModel(R.drawable.ic_profile, String.format("%s %s",info.getUserInfo().getFirstName(), info.getUserInfo().getLastName()),info.getIdeaDesc(),info.getIdeatitle(),"#AI #ML #RNN","22",Integer.valueOf(info.getUpVotes()).toString(),Integer.valueOf(info.getDownVotes()).toString()));
+                }
+                IdeaAdapter ideaAdapter = new IdeaAdapter(ideaList,getContext());
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                idearv.setLayoutManager(layoutManager);
+                idearv.setNestedScrollingEnabled(false);
+                idearv.setAdapter(ideaAdapter);
+            }
+            @Override
+            public void onFailure(Call<List<API>> call, Throwable t) {
+
+                Log.e("home test",t.getMessage());
+            }
+        });
+
+//            ideaList.add(new IdeaModel(R.drawable.ic_profile,"Afsan Saeed","g software like Aldus ","Title of the Idea","#AI #ML #RNN","22","522","22"));
         return view;
     }
 }

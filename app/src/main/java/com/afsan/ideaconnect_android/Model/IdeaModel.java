@@ -15,7 +15,7 @@ public class IdeaModel {
         this.suggestion = suggestion;
         this.upvote = upvote;
         this.downvote = downvote;
-
+        System.out.println(tags);
     }
 
     public int getProfile() {
