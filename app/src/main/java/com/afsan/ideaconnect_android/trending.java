@@ -5,16 +5,26 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.afsan.ideaconnect_android.Adapter.IdeaAdapter;
 import com.afsan.ideaconnect_android.Adapter.TrendingPostAdapter;
+import com.afsan.ideaconnect_android.Model.API;
+import com.afsan.ideaconnect_android.Model.ApiInterface;
 import com.afsan.ideaconnect_android.Model.IdeaModel;
 import com.afsan.ideaconnect_android.Model.TrendingPostModel;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,25 +86,49 @@ public class trending extends Fragment {
 
         idearv = view.findViewById(R.id.trendingContainer);
         ideaList = new ArrayList<>();
-        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
-        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
-        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
-        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
-        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
-        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
-        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
-        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
-        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
-        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
-        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
-        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
-        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
-        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
-        TrendingPostAdapter trendingAdapter = new TrendingPostAdapter(ideaList,getContext());
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        idearv.setLayoutManager(layoutManager);
-        idearv.setNestedScrollingEnabled(false);
-        idearv.setAdapter(trendingAdapter);
+
+
+//        ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://3737-103-177-48-4.ngrok.io/api/token/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiInterface api = retrofit.create(ApiInterface.class);
+        Call<List<API>> call = api.getModels();
+        call.enqueue(new Callback<List<API>>() {
+            @Override
+            public void onResponse(Call<List<API>> call, Response<List<API>> response) {
+                List<API> data = response.body();
+                ArrayList<TrendingPostModel>ideaList = new ArrayList<>();
+                System.out.println("From trending post -> " +response);
+                for(int i = 0; i< data.size();i++){
+                    API info = data.get(i);
+//                    System.out.println("Printing-> "+info.getFirst_name());
+                    String tag[] = info.getIdeaTags().split(" ");
+//                    System.out.println(tag[0] + " tags are here "+ tag[1]);
+                    String tags = "";
+                    for (int j = 0; j< tag.length;j++){
+                        tags = tags + " " + "#"+tag[j];
+                    }
+//                      ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
+                      ideaList.add(new TrendingPostModel(R.drawable.ic_profile,info.getFirst_name() + info.getLast_name(),info.getIdeaTitle(),tags,String.valueOf(info.getSuggestions().length),String.valueOf(info.getUpvotes().length),String.valueOf(info.getDownvotes().length)));
+
+                }
+                TrendingPostAdapter trendingPostAdapter = new TrendingPostAdapter(ideaList,getContext());
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                idearv.setLayoutManager(layoutManager);
+                idearv.setNestedScrollingEnabled(false);
+                idearv.setAdapter(trendingPostAdapter);
+            }
+            @Override
+            public void onFailure(Call<List<API>> call, Throwable t) {
+
+                Log.e("home test",t.getMessage());
+            }
+        });
+
         return view;
     }
 }
