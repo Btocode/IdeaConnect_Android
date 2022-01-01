@@ -2,11 +2,35 @@ package com.afsan.ideaconnect_android.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+/*
+{
+        "ideaId": 42,
+        "ideaTitle": "Dynamic Operations Designer",
+        "ideaDesc": "Aut et minima.",
+        "ideaTags": "Accusantium perspiciatis minus sed fuga totam excepturi.",
+        "author": 20,
+        "upvotes": [
+            15
+        ],
+        "downvotes": [
+            20,
+            22
+        ],
+        "suggestions": [],
+        "postingTime": "2021-12-30T06:57:25.100366Z",
+        "voteCounter": -1,
+        "first_name": "kamal",
+        "last_name": "Hossain"
+    },
+
+ */
+
+
+
 public class API {
     private String ideatitle,ideatags,ideaDesc;
     private int ideaId,upVotes,downVotes;
-    @SerializedName("user")
-    private UserInfo userInfo;
+
 
     public API(String ideatitle, String ideatags, String ideaDesc, int ideaId, int upVotes, int downVotes, UserInfo userInfo) {
         this.ideatitle = ideatitle;
@@ -15,7 +39,7 @@ public class API {
         this.ideaId = ideaId;
         this.upVotes = upVotes;
         this.downVotes = downVotes;
-        this.userInfo = userInfo;
+//        this.userInfo = userInfo;
     }
 
     public String getIdeatitle() {
@@ -66,11 +90,11 @@ public class API {
         this.downVotes = downVotes;
     }
 
-    public UserInfo getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
-    }
+//    public UserInfo getUserInfo() {
+//        return userInfo;
+//    }
+//
+//    public void setUserInfo(UserInfo userInfo) {
+//        this.userInfo = userInfo;
+//    }
 }

@@ -1,15 +1,19 @@
 package com.afsan.ideaconnect_android;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.afsan.ideaconnect_android.Adapter.IdeaAdapter;
@@ -33,8 +37,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class Home extends Fragment {
 
-    String url = "https://1826-103-177-48-7.ngrok.io/api/";
+    String url = "http://3737-103-177-48-4.ngrok.io/api/token/";
     RecyclerView idearv;
+    Button btn_logout;
 //    ArrayList<IdeaModel> ideaList;
 
 
@@ -78,13 +83,31 @@ public class Home extends Fragment {
 
         }
 
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        btn_logout = view.findViewById(R.id.logout);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor editor = sp.edit();
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),LoginActivity.class);
+                startActivity(intent);
+                System.out.println("Clicked on logout before");
+                editor.clear();
+                editor.commit();
+                System.out.println("Clicked on logout after");
+            }
+        });
+
 
         idearv = view.findViewById(R.id.viewIdeas);
         final ArrayList<IdeaModel>ideaList = new ArrayList<>();
@@ -104,9 +127,10 @@ public class Home extends Fragment {
                 System.out.println(data.size()+ "success");
                 for(int i = 0; i< data.size();i++){
                     API info = data.get(i);
-                    System.out.println(data.get(i).getUserInfo().getFirstName());
+
+                                ideaList.add(new IdeaModel(R.drawable.ic_profile,"Afsan Saeed","g software like Aldus ","Title of the Idea","#AI #ML #RNN","22","522","22"));
 //                    viewData(data.get(i).getUserInfo().getFirstName(),data.get(i).getUserInfo().getLastName(),data.get(i).getIdeatitle(),data.get(i).getIdeaDesc())
-                    ideaList.add(new IdeaModel(R.drawable.ic_profile, String.format("%s %s",info.getUserInfo().getFirstName(), info.getUserInfo().getLastName()),info.getIdeaDesc(),info.getIdeatitle(),"#AI #ML #RNN","22",Integer.valueOf(info.getUpVotes()).toString(),Integer.valueOf(info.getDownVotes()).toString()));
+//                    ideaList.add(new IdeaModel(R.drawable.ic_profile, String.format("%s %s",info.getUserInfo().getFirstName(), info.getUserInfo().getLastName()),info.getIdeaDesc(),info.getIdeatitle(),"#AI #ML #RNN","22",Integer.valueOf(info.getUpVotes()).toString(),Integer.valueOf(info.getDownVotes()).toString()));
                 }
                 IdeaAdapter ideaAdapter = new IdeaAdapter(ideaList,getContext());
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
