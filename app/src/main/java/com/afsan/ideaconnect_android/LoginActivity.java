@@ -44,6 +44,16 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.set_password);
         forgotbtn = findViewById(R.id.forgot_btn);
         createbtn = findViewById(R.id.acc_create);
+
+        createbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent createAccount = new Intent(LoginActivity.this,SignUpActivity.class);
+                startActivity(createAccount);
+            }
+        });
+
+
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         String name = sp.getString("name","");
         System.err.println("Printing from login page "+name + "=<<");

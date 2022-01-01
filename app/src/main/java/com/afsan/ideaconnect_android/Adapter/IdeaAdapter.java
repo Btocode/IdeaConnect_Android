@@ -36,15 +36,17 @@ public class IdeaAdapter extends RecyclerView.Adapter<IdeaAdapter.viewHolder>{
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         IdeaModel model = list.get(position);
+        String suggestion = String.valueOf(model.getSuggestions().length);
+        String upvote = String.valueOf(model.getUpvotes().length);
+        String downupvote = String.valueOf(model.getDownvotes().length);
         holder.profile.setImageResource(model.getProfile());
-        holder.name.setText(model.getName());
-        holder.title.setText(model.getTitle());
-        holder.tags.setText(model.getTags());
-        holder.suggestion.setText(model.getSuggestion());
-        holder.idea.setText(model.getIdea());
-        holder.upvote.setText(model.getUpvote());
-        holder.downvote.setText(model.getDownvote());
-
+        holder.name.setText(model.getFirst_name() + model.getLast_name());
+        holder.title.setText(model.getIdeaTitle());
+        holder.tags.setText(model.getIdeaTags());
+        holder.suggestion.setText(suggestion);
+        holder.idea.setText(model.getIdeaDesc());
+        holder.upvote.setText(upvote);
+        holder.downvote.setText(downupvote);
     }
 
     @Override

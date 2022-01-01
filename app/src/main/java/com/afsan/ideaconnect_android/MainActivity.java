@@ -45,33 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        if(b!=null){
-//            status = (String) b.get("stat");
-//        }
-//        if (status == ""){
-//            if(b!=null)
-//            {
-//                access =(String) b.get("access");
-//                refresh =(String) b.get("refresh");
-//            }
-//            JWT jwt = new JWT(access);
-//            Claim name = jwt.getClaim("username");
-//            Claim id = jwt.getClaim("user_id");
-//            String username = name.asString();
-//            int userid = id.asInt();
-//
-//            sp = PreferenceManager.getDefaultSharedPreferences(this);
-//            SharedPreferences.Editor editor = sp.edit();
-//            editor.putString("name", username);
-////        editor.putInt("id", userid);
-//            editor.commit();
-//            Toast.makeText(MainActivity.this,"Saved into preference", Toast.LENGTH_LONG).show();
-//
-//        }
-
-//        System.out.println("UserName : "+username);
-//        System.out.println("UserId : "+userid);
-
 
 
 

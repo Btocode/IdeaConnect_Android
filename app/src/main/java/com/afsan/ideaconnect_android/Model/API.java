@@ -28,42 +28,34 @@ import com.google.gson.annotations.SerializedName;
 
 
 public class API {
-    private String ideatitle,ideatags,ideaDesc;
-    private int ideaId,upVotes,downVotes;
+    int profile, ideaId, voteCounter, author;
+    String ideaTitle, ideaDesc, ideaTags, last_name, first_name;
+    int[] upvotes;
+    int[] downvotes;
+    int[] suggestions;
 
 
-    public API(String ideatitle, String ideatags, String ideaDesc, int ideaId, int upVotes, int downVotes, UserInfo userInfo) {
-        this.ideatitle = ideatitle;
-        this.ideatags = ideatags;
-        this.ideaDesc = ideaDesc;
+    public API(int profile, int ideaId, int voteCounter, int author, String ideaTitle, String ideaDesc, String ideaTags, String last_name, String first_name, int[] upvotes, int[] downvotes, int[] suggestions) {
+        this.profile = profile;
         this.ideaId = ideaId;
-        this.upVotes = upVotes;
-        this.downVotes = downVotes;
-//        this.userInfo = userInfo;
-    }
-
-    public String getIdeatitle() {
-        return ideatitle;
-    }
-
-    public void setIdeatitle(String ideatitle) {
-        this.ideatitle = ideatitle;
-    }
-
-    public String getIdeatags() {
-        return ideatags;
-    }
-
-    public void setIdeatags(String ideatags) {
-        this.ideatags = ideatags;
-    }
-
-    public String getIdeaDesc() {
-        return ideaDesc;
-    }
-
-    public void setIdeaDesc(String ideaDesc) {
+        this.voteCounter = voteCounter;
+        this.author = author;
+        this.ideaTitle = ideaTitle;
         this.ideaDesc = ideaDesc;
+        this.ideaTags = ideaTags;
+        this.last_name = last_name;
+        this.first_name = first_name;
+        this.upvotes = upvotes;
+        this.downvotes = downvotes;
+        this.suggestions = suggestions;
+    }
+
+    public int getProfile() {
+        return profile;
+    }
+
+    public void setProfile(int profile) {
+        this.profile = profile;
     }
 
     public int getIdeaId() {
@@ -74,27 +66,83 @@ public class API {
         this.ideaId = ideaId;
     }
 
-    public int getUpVotes() {
-        return upVotes;
+    public int getVoteCounter() {
+        return voteCounter;
     }
 
-    public void setUpVotes(int upVotes) {
-        this.upVotes = upVotes;
+    public void setVoteCounter(int voteCounter) {
+        this.voteCounter = voteCounter;
     }
 
-    public int getDownVotes() {
-        return downVotes;
+    public int getAuthor() {
+        return author;
     }
 
-    public void setDownVotes(int downVotes) {
-        this.downVotes = downVotes;
+    public void setAuthor(int author) {
+        this.author = author;
     }
 
-//    public UserInfo getUserInfo() {
-//        return userInfo;
-//    }
-//
-//    public void setUserInfo(UserInfo userInfo) {
-//        this.userInfo = userInfo;
-//    }
+    public String getIdeaTitle() {
+        return ideaTitle;
+    }
+
+    public void setIdeaTitle(String ideaTitle) {
+        this.ideaTitle = ideaTitle;
+    }
+
+    public String getIdeaDesc() {
+        return ideaDesc;
+    }
+
+    public void setIdeaDesc(String ideaDesc) {
+        this.ideaDesc = ideaDesc;
+    }
+
+    public String getIdeaTags() {
+        return ideaTags;
+    }
+
+    public void setIdeaTags(String ideaTags) {
+        this.ideaTags = ideaTags;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public int[] getUpvotes() {
+        return upvotes;
+    }
+
+    public void setUpvotes(int[] upvotes) {
+        this.upvotes = upvotes;
+    }
+
+    public int[] getDownvotes() {
+        return downvotes;
+    }
+
+    public void setDownvotes(int[] downvotes) {
+        this.downvotes = downvotes;
+    }
+
+    public int[] getSuggestions() {
+        return suggestions;
+    }
+
+    public void setSuggestions(int[] suggestions) {
+        this.suggestions = suggestions;
+    }
 }

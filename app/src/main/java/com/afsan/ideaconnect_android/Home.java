@@ -40,6 +40,7 @@ public class Home extends Fragment {
     String url = "http://3737-103-177-48-4.ngrok.io/api/token/";
     RecyclerView idearv;
     Button btn_logout;
+
 //    ArrayList<IdeaModel> ideaList;
 
 
@@ -124,13 +125,20 @@ public class Home extends Fragment {
             public void onResponse(Call<List<API>> call, Response<List<API>> response) {
                 List<API> data = response.body();
                 ArrayList<IdeaModel>ideaList = new ArrayList<>();
-                System.out.println(data.size()+ "success");
+
                 for(int i = 0; i< data.size();i++){
                     API info = data.get(i);
-
-                                ideaList.add(new IdeaModel(R.drawable.ic_profile,"Afsan Saeed","g software like Aldus ","Title of the Idea","#AI #ML #RNN","22","522","22"));
+//                    System.out.println("Printing-> "+info.getFirst_name());
+                    String tag[] = info.getIdeaTags().split(" ");
+//                    System.out.println(tag[0] + " tags are here "+ tag[1]);
+                    String tags = "";
+                    for (int j = 0; j< tag.length;j++){
+                        tags = tags + " " + "#"+tag[j];
+                    }
+//                    System.out.println(info.getSuggestions().length);
+//                    ideaList.add(new IdeaModel(R.drawable.ic_profile,"Afsan Saeed","g software like Aldus ","Title of the Idea","#AI #ML #RNN","22","522","22"));
 //                    viewData(data.get(i).getUserInfo().getFirstName(),data.get(i).getUserInfo().getLastName(),data.get(i).getIdeatitle(),data.get(i).getIdeaDesc())
-//                    ideaList.add(new IdeaModel(R.drawable.ic_profile, String.format("%s %s",info.getUserInfo().getFirstName(), info.getUserInfo().getLastName()),info.getIdeaDesc(),info.getIdeatitle(),"#AI #ML #RNN","22",Integer.valueOf(info.getUpVotes()).toString(),Integer.valueOf(info.getDownVotes()).toString()));
+                    ideaList.add(new IdeaModel(R.drawable.ic_profile,info.getIdeaId(),info.getVoteCounter(),info.getAuthor(),info.getIdeaTitle(),info.getIdeaDesc(),tags,info.getLast_name(),info.getFirst_name(),info.getUpvotes(),info.getDownvotes(),info.getSuggestions()));
                 }
                 IdeaAdapter ideaAdapter = new IdeaAdapter(ideaList,getContext());
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());

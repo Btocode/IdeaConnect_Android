@@ -1,9 +1,11 @@
 package com.afsan.ideaconnect_android;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,9 +66,17 @@ public class Profile extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        int id = sp.getInt("id",0);
+        String name = sp.getString("name","");
+//        System.err.println("Printing from Profile page "+ id + " && name = " + name);
         nameOfUser = rootView.findViewById(R.id.name_profile);
-        nameOfUser.setText("Afsan Saeed");
+        nameOfUser.setText(name);
+
+
+
+
+
         return rootView;
     }
 }

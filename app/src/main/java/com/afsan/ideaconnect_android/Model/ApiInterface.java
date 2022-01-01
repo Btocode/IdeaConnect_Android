@@ -13,4 +13,8 @@ public interface ApiInterface {
     Call<List<API>> getModels();
     @POST("token/")
     Call<LoginModel> loginUser(@Body LoginModel loginmodel);
+    @POST("create/")
+    Call<SignupModel> registerUser(@Body SignupModel signupModel);
+    @POST("ideas/")
+    Call<CreatePostModel> createPost(@Body CreatePostModel createPostModel);
 }

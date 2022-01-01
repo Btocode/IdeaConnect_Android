@@ -1,21 +1,25 @@
 package com.afsan.ideaconnect_android.Model;
 
 public class IdeaModel {
-    int profile;
-    String name, idea, title, tags, suggestion,upvote,downvote;
+    int profile, ideaId, voteCounter, author;
+    String ideaTitle, ideaDesc, ideaTags, last_name, first_name;
+    int[] upvotes;
+    int[] downvotes;
+    int[] suggestions;
 
-
-
-    public IdeaModel(int profile, String name, String idea, String title, String tags, String suggestion, String upvote, String downvote) {
+    public IdeaModel(int profile, int ideaId, int voteCounter, int author, String ideaTitle, String ideaDesc, String ideaTags, String last_name, String first_name, int[] upvotes, int[] downvotes, int[] suggestions) {
         this.profile = profile;
-        this.name = name;
-        this.idea = idea;
-        this.title = title;
-        this.tags = tags;
-        this.suggestion = suggestion;
-        this.upvote = upvote;
-        this.downvote = downvote;
-        System.out.println(tags);
+        this.ideaId = ideaId;
+        this.voteCounter = voteCounter;
+        this.author = author;
+        this.ideaTitle = ideaTitle;
+        this.ideaDesc = ideaDesc;
+        this.ideaTags = ideaTags;
+        this.last_name = last_name;
+        this.first_name = first_name;
+        this.upvotes = upvotes;
+        this.downvotes = downvotes;
+        this.suggestions = suggestions;
     }
 
     public int getProfile() {
@@ -26,58 +30,93 @@ public class IdeaModel {
         this.profile = profile;
     }
 
-    public String getName() {
-        return name;
+    public int getIdeaId() {
+        return ideaId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setIdeaId(int ideaId) {
+        this.ideaId = ideaId;
     }
 
-    public String getIdea() {
-        return idea;
+    public int getVoteCounter() {
+        return voteCounter;
     }
 
-    public void setIdea(String idea) {
-        this.idea = idea;
+    public void setVoteCounter(int voteCounter) {
+        this.voteCounter = voteCounter;
     }
 
-    public String getTitle() {
-        return title;
+    public int getAuthor() {
+        return author;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setAuthor(int author) {
+        this.author = author;
     }
 
-    public String getTags() {
-        return tags;
+    public String getIdeaTitle() {
+        return ideaTitle;
     }
 
-    public void setTags(String tags) {
-        this.tags = tags;
+    public void setIdeaTitle(String ideaTitle) {
+        this.ideaTitle = ideaTitle;
     }
 
-    public String getSuggestion() {
-        return suggestion;
+    public String getIdeaDesc() {
+        return ideaDesc;
     }
 
-    public void setSuggestion(String suggestion) {
-        this.suggestion = suggestion;
-    }
-    public String getUpvote() {
-        return upvote;
+    public void setIdeaDesc(String ideaDesc) {
+        this.ideaDesc = ideaDesc;
     }
 
-    public void setUpvote(String upvote) {
-        this.upvote = upvote;
+    public String getIdeaTags() {
+        return ideaTags;
     }
 
-    public String getDownvote() {
-        return downvote;
+    public void setIdeaTags(String ideaTags) {
+        this.ideaTags = ideaTags;
     }
 
-    public void setDownvote(String downvote) {
-        this.downvote = downvote;
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public int[] getUpvotes() {
+        return upvotes;
+    }
+
+    public void setUpvotes(int[] upvotes) {
+        this.upvotes = upvotes;
+    }
+
+    public int[] getDownvotes() {
+        return downvotes;
+    }
+
+    public void setDownvotes(int[] downvotes) {
+        this.downvotes = downvotes;
+    }
+
+    public int[] getSuggestions() {
+        return suggestions;
+    }
+
+    public void setSuggestions(int[] suggestions) {
+        this.suggestions = suggestions;
     }
 }
+
+
