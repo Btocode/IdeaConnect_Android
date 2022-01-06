@@ -14,6 +14,9 @@
         android:theme="@style/Theme.IdeaConnect_Android"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".UserProfile"
+            android:exported="false" />
+        <activity
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
