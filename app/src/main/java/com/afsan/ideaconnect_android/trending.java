@@ -92,7 +92,7 @@ public class trending extends Fragment {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://3737-103-177-48-4.ngrok.io/api/token/")
+                .baseUrl("https://backend.btocode.repl.co/api/token/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiInterface api = retrofit.create(ApiInterface.class);
@@ -113,7 +113,8 @@ public class trending extends Fragment {
                         tags = tags + " " + "#"+tag[j];
                     }
 //                      ideaList.add(new TrendingPostModel(R.drawable.ic_profile,"Hasnayeen Ornil","Title Of the Post","#AI #ML #RNN","52","45","32"));
-                      ideaList.add(new TrendingPostModel(R.drawable.ic_profile,info.getFirst_name() + info.getLast_name(),info.getIdeaTitle(),tags,String.valueOf(info.getSuggestions().length),String.valueOf(info.getUpvotes().length),String.valueOf(info.getDownvotes().length)));
+//                      ideaList.add(new TrendingPostModel(R.drawable.ic_profile,info.getFirst_name() + info.getLast_name(),info.getIdeaTitle(),tags,String.valueOf(info.getSuggestions().length),String.valueOf(info.getUpvotes().length),String.valueOf(info.getDownvotes().length)));
+                      ideaList.add(new TrendingPostModel(R.drawable.ic_profile,info.getFirst_name() + info.getLast_name(),info.getIdeaTitle(),tags,"35",String.valueOf(info.getUpvotes().length),String.valueOf(info.getDownvotes().length)));
 
                 }
                 TrendingPostAdapter trendingPostAdapter = new TrendingPostAdapter(ideaList,getContext());

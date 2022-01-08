@@ -23,6 +23,7 @@ public class Profile extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     TextView nameOfUser;
+    String url = "https://backend.btocode.repl.co/api/token/";
 
 
     // TODO: Rename and change types of parameters

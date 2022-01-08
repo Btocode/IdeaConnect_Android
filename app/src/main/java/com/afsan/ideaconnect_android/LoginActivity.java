@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
     public void validateUserInfo(String uid, String upass){
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://3737-103-177-48-4.ngrok.io/api/")
+                .baseUrl("https://backend.btocode.repl.co/api/")
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

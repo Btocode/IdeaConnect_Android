@@ -37,7 +37,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class Home extends Fragment {
 
-    String url = "http://3737-103-177-48-4.ngrok.io/api/token/";
+    String url = "https://backend.btocode.repl.co/api/token/";
     RecyclerView idearv;
     Button btn_logout;
 

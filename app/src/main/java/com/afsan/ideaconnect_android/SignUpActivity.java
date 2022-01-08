@@ -66,7 +66,7 @@ Button submit;
 
     private void RegistrationRequestHandler(String first_name,String last_name,String user_name,String e_mail,String password_t) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://3737-103-177-48-4.ngrok.io/api/token/")
+                .baseUrl("https://backend.btocode.repl.co/api/token/")
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

@@ -88,7 +88,7 @@ Button post;
 
     private void CreatePosthandler(int userid, String ideatitle, String ideadescr, String ideatags) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://3737-103-177-48-4.ngrok.io/api/token/")
+                .baseUrl("https://backend.btocode.repl.co/api/token/")
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
