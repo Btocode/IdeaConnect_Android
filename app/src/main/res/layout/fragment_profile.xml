@@ -171,7 +171,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView17"
+                        android:id="@+id/programmingView"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
@@ -183,7 +183,7 @@
                         app:layout_constraintStart_toEndOf="@+id/skill_type" />
 
                     <TextView
-                        android:id="@+id/textView18"
+                        android:id="@+id/languageView"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
@@ -237,19 +237,13 @@
                         android:layout_height="38dp"
                         android:text="Github"
                         app:layout_constraintBottom_toBottomOf="@+id/button2"
-                        app:layout_constraintEnd_toEndOf="@+id/textView18"
+                        app:layout_constraintEnd_toEndOf="@+id/languageView"
                         app:layout_constraintTop_toTopOf="@+id/button2"
                         app:layout_constraintVertical_bias="1.0"
                         tools:ignore="TouchTargetSizeCheck" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/user_post_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp" />
 
         </LinearLayout>
     </ScrollView>

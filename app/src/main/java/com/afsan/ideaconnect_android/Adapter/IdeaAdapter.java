@@ -1,6 +1,10 @@
 package com.afsan.ideaconnect_android.Adapter;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,19 +14,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.afsan.ideaconnect_android.Home;
+import com.afsan.ideaconnect_android.Model.CreatePostModel;
 import com.afsan.ideaconnect_android.Model.IdeaModel;
+import com.afsan.ideaconnect_android.Model.LoginModel;
+import com.afsan.ideaconnect_android.NewIdea;
 import com.afsan.ideaconnect_android.R;
+import com.afsan.ideaconnect_android.UserProfile;
 
 import java.util.ArrayList;
 
 public class IdeaAdapter extends RecyclerView.Adapter<IdeaAdapter.viewHolder>{
 
     ArrayList<IdeaModel> list;
-    Context context;
-
-    public IdeaAdapter(ArrayList<IdeaModel> list, Context context) {
+    private Context context;
+    Home home;
+    public IdeaAdapter(ArrayList<IdeaModel> list, Context context, Home home) {
         this.list = list;
         this.context = context;
+        this.home = home;
     }
 
     @NonNull
@@ -48,6 +58,17 @@ public class IdeaAdapter extends RecyclerView.Adapter<IdeaAdapter.viewHolder>{
         holder.idea.setText(model.getIdeaDesc());
         holder.upvote.setText(upvote);
         holder.downvote.setText(downupvote);
+        int author = model.getAuthor();
+
+        holder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: Clicked ");
+                Intent intent = new Intent(context, UserProfile.class);
+                intent.putExtra("id",author);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -71,6 +92,7 @@ public class IdeaAdapter extends RecyclerView.Adapter<IdeaAdapter.viewHolder>{
             title = itemView.findViewById(R.id.ideatitle);
             upvote = itemView.findViewById(R.id.upvote);
             downvote = itemView.findViewById(R.id.downvote);
+
 
         }
     }

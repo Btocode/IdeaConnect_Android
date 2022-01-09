@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afsan.ideaconnect_android.Adapter.IdeaAdapter;
@@ -30,16 +31,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Home#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Home extends Fragment {
 
     String url = "https://backend.btocode.repl.co/api/token/";
     RecyclerView idearv;
     Button btn_logout;
+    TextView username;
 
 //    ArrayList<IdeaModel> ideaList;
 
@@ -57,14 +54,6 @@ public class Home extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Home.
-     */
     // TODO: Rename and change types and number of parameters
     public static Home newInstance(String param1, String param2) {
         Home fragment = new Home();
@@ -123,24 +112,21 @@ public class Home extends Fragment {
         call.enqueue(new Callback<List<API>>() {
             @Override
             public void onResponse(Call<List<API>> call, Response<List<API>> response) {
+
                 List<API> data = response.body();
                 ArrayList<IdeaModel>ideaList = new ArrayList<>();
 
                 for(int i = 0; i< data.size();i++){
                     API info = data.get(i);
-//                    System.out.println("Printing-> "+info.getFirst_name());
                     String tag[] = info.getIdeaTags().split(" ");
-//                    System.out.println(tag[0] + " tags are here "+ tag[1]);
                     String tags = "";
                     for (int j = 0; j< tag.length;j++){
                         tags = tags + " " + "#"+tag[j];
                     }
-//                    System.out.println(info.getSuggestions().length);
-//                    ideaList.add(new IdeaModel(R.drawable.ic_profile,"Afsan Saeed","g software like Aldus ","Title of the Idea","#AI #ML #RNN","22","522","22"));
-//                    viewData(data.get(i).getUserInfo().getFirstName(),data.get(i).getUserInfo().getLastName(),data.get(i).getIdeatitle(),data.get(i).getIdeaDesc())
+
                     ideaList.add(new IdeaModel(R.drawable.ic_profile,info.getIdeaId(),info.getVoteCounter(),info.getAuthor(),info.getIdeaTitle(),info.getIdeaDesc(),tags,info.getLast_name(),info.getFirst_name(),info.getUpvotes(),info.getDownvotes(),info.getSuggestions()));
                 }
-                IdeaAdapter ideaAdapter = new IdeaAdapter(ideaList,getContext());
+                IdeaAdapter ideaAdapter = new IdeaAdapter(ideaList,getContext(),Home.this);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                 idearv.setLayoutManager(layoutManager);
                 idearv.setNestedScrollingEnabled(false);
@@ -153,7 +139,6 @@ public class Home extends Fragment {
             }
         });
 
-//            ideaList.add(new IdeaModel(R.drawable.ic_profile,"Afsan Saeed","g software like Aldus ","Title of the Idea","#AI #ML #RNN","22","522","22"));
         return view;
     }
 }

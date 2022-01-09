@@ -52,15 +52,22 @@ Button post;
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_idea, container, false);
         name = view.findViewById(R.id.name_create);
-        jobtitle = view.findViewById(R.id.jobtitle);
         title = view.findViewById(R.id.title_create);
         ideadesc = view.findViewById(R.id.ideadesc_create);
         tags = view.findViewById(R.id.tags_create);
         post = view.findViewById(R.id.btnpost_create);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String uid = sp.getString("name","");
-        name.setText(uid);
+        String uid = sp.getString("fullname","");
+        String userId = sp.getString("name","");
+
+        if (uid != ""){
+            name.setText(uid);
+        }
+        else{
+            name.setText(userId);
+        }
+
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,8 +109,10 @@ Button post;
             public void onResponse(Call<CreatePostModel> call, Response<CreatePostModel> response) {
                 if (response.isSuccessful()){
                     Toast.makeText(getContext(),"Idea Successfully Posted",Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getActivity(),Home.class);
-                    startActivity(intent);
+
+                }
+                else{
+                    Toast.makeText(getContext(),"Please try again later",Toast.LENGTH_LONG).show();
                 }
             }
 
